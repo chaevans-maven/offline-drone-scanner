@@ -171,9 +171,62 @@ class BasicFields {
       if (messagePackList.last.selfIdMessage != null &&
           messagePackList.last.selfIdMessage?.operationDescription != null)
         AircraftDetailField(
-          headlineText: 'Operation Description',
-          fieldText: messagePackList.last.selfIdMessage!.operationDescription,
+          headlineText: 'Light Pattern',
+          //fieldText: (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(6, 9)) - 100).toString(),
+          child: Container(
+            color: Colors.black,
+            child: Row(children: [
+                Icon(
+                  Icons.lightbulb,
+                  color: Color.fromRGBO(
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(3, 6)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(0, 3)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(6, 9)) - 100) * 25,
+                  1.0),
+                  size: Sizes.iconSize * 2,
+                ),
+                Icon(
+                  Icons.lightbulb,
+                  color: Color.fromRGBO(
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(12, 15)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(9, 12)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(15, 18)) - 100) * 25,
+                  1.0),
+                  size: Sizes.iconSize * 2,
+                ),
+                Icon(
+                  Icons.lightbulb,
+                  color: Color.fromRGBO(
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(21, 24)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(18, 21)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(24, 27)) - 100) * 25,
+                  1.0),
+                  size: Sizes.iconSize * 2,
+                ),
+                Icon(
+                  Icons.lightbulb,
+                  color: Color.fromRGBO(
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(30, 33)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(27, 30)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(33, 36)) - 100) * 25,
+                  1.0),
+                  size: Sizes.iconSize * 2,
+                ),
+                Icon(
+                  Icons.lightbulb,
+                  color: Color.fromRGBO(
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(39, 42)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(36, 39)) - 100) * 25,
+                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(42, 45)) - 100) * 25,
+                  1.0),
+                  size: Sizes.iconSize * 2,
+                ),            
+              ],
+            ),
+          )
         ),
+
+        //Container(color: Color.fromRGBO(255, 0, 0, 1.0)),
       if (isLandscape) const SizedBox(),
     ];
   }

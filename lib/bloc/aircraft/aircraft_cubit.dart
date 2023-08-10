@@ -53,7 +53,7 @@ class AircraftCubit extends Cubit<AircraftState> {
       basicIdMessage: pigeon.BasicIdMessage(
         macAddress: '00:00:5e:00:53:ae',
         receivedTimestamp: DateTime.now().microsecondsSinceEpoch,
-        uasId: '52426900931WDHW83',
+        uasId: '52426900931WHELLO',
         idType: pigeon.IdType.UTM_Assigned_ID,
         uaType: pigeon.UaType.Helicopter_or_Multirotor,
         rssi: -90,
