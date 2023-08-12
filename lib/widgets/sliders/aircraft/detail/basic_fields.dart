@@ -38,6 +38,7 @@ class BasicFields {
     final uasId = messagePackList.last.basicIdMessage?.uasId;
     final proximityAlertsActive =
         context.watch<ProximityAlertsCubit>().state.isAlertActiveForId(uasId);
+    var colorAccessibleVersion = true;
 
     return [
       const Headline(text: 'AIRCRAFT'),
@@ -172,44 +173,128 @@ class BasicFields {
           messagePackList.last.selfIdMessage?.operationDescription != null)
         AircraftDetailField(
           headlineText: 'Light Pattern',
-          fieldText: messagePackList.last.selfIdMessage!.operationDescription,
-          child: Container(
-            color: Colors.black,
-            child: Row(children: [
-                Icon(
-                  Icons.lightbulb,
-                  color: Color.fromRGBO(
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(11),
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(10),
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(12),
-                  1.0),
-                  size: Sizes.iconSize * 2,
+          //fieldText: messagePackList.last.selfIdMessage!.operationDescription,
+          child: Row(children: [
+            ElevatedButton(
+                onPressed: () {
+                  colorAccessibleVersion = !colorAccessibleVersion;
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    proximityAlertsActive ? AppColors.green : Colors.white,
+                  ),
+                  side: MaterialStateProperty.all<BorderSide>(
+                    BorderSide(
+                        width: 2.0,
+                        color: proximityAlertsActive
+                            ? Colors.white
+                            : AppColors.green),
+                  ),
                 ),
-                Icon(
-                  Icons.lightbulb,
-                  color: Color.fromRGBO(
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(14),
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(13),
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(15),
-                  1.0),
-                  size: Sizes.iconSize * 2,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: proximityAlertsActive ? 0 : Sizes.iconPadding,
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        size: Sizes.iconSize,
+                        color: proximityAlertsActive
+                            ? Colors.white
+                            : AppColors.green,
+                      ),
+                    ),
+                    if (proximityAlertsActive)
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(right: Sizes.iconPadding),
+                        child: Icon(
+                          Icons.done,
+                          color: Colors.white,
+                          size: Sizes.iconSize * 0.75,
+                        ),
+                      ),
+                    Text(
+                      colorAccessibleVersion ? 'Colors on' : 'Colors off',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: proximityAlertsActive
+                              ? Colors.white
+                              : AppColors.green),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                Icon(
-                  Icons.lightbulb,
-                  color: Color.fromRGBO(
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(17),
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(16),
-                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(18),
-                  1.0),
-                  size: Sizes.iconSize * 2,
-                ),            
-              ],
-            ),
-          )
+              ),
+              Container(color: Colors.grey,
+              child: colorAccessibleVersion ? 
+                blinkingLightPattern(messagePackList.last.selfIdMessage!.operationDescription) : 
+                colorLightPattern(messagePackList.last.selfIdMessage!.operationDescription),
+              )
+          ],)
         ),
 
         //Container(color: Color.fromRGBO(255, 0, 0, 1.0)),
       if (isLandscape) const SizedBox(),
     ];
+  }
+
+  static Color interpretRGBValues(String rgb) {
+    var r = rgb.codeUnitAt(0).toDouble();
+    var g = rgb.codeUnitAt(1).toDouble();
+    var b = rgb.codeUnitAt(2).toDouble();
+
+
+    var max = r;
+    if (g > max) {
+      max = g;
+    }
+    if (b > max) {
+      max = b;
+    }
+
+    r = r / max * 254;
+    g = g / max * 254;
+    b = b / max * 254;
+
+    return Color.fromRGBO(r.round(), g.round(), b.round(), 1.0);
+  }
+
+  static Row colorLightPattern(String selfId) {
+    return Row(
+      children: [
+        Icon(
+          Icons.lightbulb,
+          color: interpretRGBValues(selfId.substring(10,13)),
+          size: Sizes.iconSize * 2,
+        ),
+        Icon(
+          Icons.lightbulb,
+          color: interpretRGBValues(selfId.substring(13,16)),
+          size: Sizes.iconSize * 2,
+        ),
+        Icon(
+          Icons.lightbulb,
+          color: interpretRGBValues(selfId.substring(16,19)),
+          size: Sizes.iconSize * 2,
+        ),  
+      ],
+    );
+  }
+
+  static Row blinkingLightPattern(String selfId) {
+    var pattern = selfId.codeUnitAt(20);
+    List<Widget> patternBinaryList = [];
+    for (int i = 7; i >= 0; i--) {
+        patternBinaryList.add(Icon(
+          Icons.lightbulb,
+          color: ((pattern >> i) % 2) == 1 ? Colors.white : Colors.black,
+          size: Sizes.iconSize,
+        ));
+    }
+    return Row(
+      children: patternBinaryList,
+    );
   }
 }
