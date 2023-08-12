@@ -172,52 +172,34 @@ class BasicFields {
           messagePackList.last.selfIdMessage?.operationDescription != null)
         AircraftDetailField(
           headlineText: 'Light Pattern',
-          //fieldText: (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(6, 9)) - 100).toString(),
+          fieldText: messagePackList.last.selfIdMessage!.operationDescription,
           child: Container(
             color: Colors.black,
             child: Row(children: [
                 Icon(
                   Icons.lightbulb,
                   color: Color.fromRGBO(
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(3, 6)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(0, 3)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(6, 9)) - 100) * 25,
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(11),
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(10),
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(12),
                   1.0),
                   size: Sizes.iconSize * 2,
                 ),
                 Icon(
                   Icons.lightbulb,
                   color: Color.fromRGBO(
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(12, 15)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(9, 12)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(15, 18)) - 100) * 25,
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(14),
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(13),
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(15),
                   1.0),
                   size: Sizes.iconSize * 2,
                 ),
                 Icon(
                   Icons.lightbulb,
                   color: Color.fromRGBO(
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(21, 24)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(18, 21)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(24, 27)) - 100) * 25,
-                  1.0),
-                  size: Sizes.iconSize * 2,
-                ),
-                Icon(
-                  Icons.lightbulb,
-                  color: Color.fromRGBO(
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(30, 33)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(27, 30)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(33, 36)) - 100) * 25,
-                  1.0),
-                  size: Sizes.iconSize * 2,
-                ),
-                Icon(
-                  Icons.lightbulb,
-                  color: Color.fromRGBO(
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(39, 42)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(36, 39)) - 100) * 25,
-                  (int.parse(messagePackList.last.selfIdMessage!.operationDescription.substring(42, 45)) - 100) * 25,
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(17),
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(16),
+                  messagePackList.last.selfIdMessage!.operationDescription.codeUnitAt(18),
                   1.0),
                   size: Sizes.iconSize * 2,
                 ),            
